@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <title>RanglistaVillamjatek</title>
+    <link rel="stylesheet" href="stilo.css">
+    <style>
+        #kulsoDiv {
+            position: absolute;
+            left: 400px; /* Példa érték - állítsd be a fehér vászon megfelelő pozícióját */
+            top: 200px; /* Példa érték - állítsd be a fehér vászon megfelelő pozícióját */
+        }
+    </style>
+</head>
+<body>
+<div id="canvas-container">
+    <img src="Bejeweled3Classic.png">
+    <canvas id="Index" height="768" width="1024" style="border: 1px solid"></canvas>
+    <audio autoplay loop>
+        <source src="./hanganyag/Bejeweled3mainmenuzene.mp3">
+    </audio>
+    <div id="kulsoDiv"></div>
+</div>
+
+<button id="button9" onClick="Irdki()"></button>
+<button id="button10" onclick="location.href='Index.html'"></button>
+
+<script>
+    var szinek = ["Kek1.png","Lila1.png","Feher1.png","Narancs1.png","Piros1.png"];
+
+    function shuffle(array) {
+        for (var i = array.length - 1; i > 0; i--) {
+            var j = Math.floor(Math.random() * (i + 1));
+            var temp = array[i];
+            array[i] = array[j];
+            array[j] = temp;
+        }
+        return array;
+    }
+
+    shuffle(szinek); // Színek véletlenszerű sorrendben
+
+    var negyzetekMerete = 50;
+    var sorokSzama = 8;
+    var oszlopokSzama = 8;
+    var balraeltolas = 0;
+    var lefeleeltolas = 0;
+    var randomIndex = 0;
+
+    for (var i = 0; i < sorokSzama; i++) {
+        for (var j = 0; j < oszlopokSzama; j++) {
+            var div = document.createElement("div");
+            div.style.position = "absolute";
+            div.style.left = "" + balraeltolas + "px";
+            div.style.top = "" + lefeleeltolas + "px";
+            div.style.width = "50px";
+            div.style.height = "50px";
+            div.style.backgroundImage = "url('" + szinek[randomIndex] + "')";
+            div.onclick = function() {
+                var currentImage = this.style.backgroundImage;
+                var currentIndex = szinek.indexOf(currentImage.slice(5, -2));
+
+                // Megengedett képek listája az animációhoz
+                var allowedImages = ["Kek1.png", "Kek2.png", "Lila1.png", "Lila2.png", "Narancs1.png", "Narancs2.png", "Zold1.png", "Zold2.png", "Piros1.png", "Feher1.png"];
+
+                // Csak ha a jelenlegi kép az engedélyezett képek között van, indítsuk el az animációt
+                if (allowedImages.includes(szinek[currentIndex])) {
+                    var that = this; // Hivatkozás a div elemre a setInterval-en belül
+                    var nextIndex = (currentIndex + 1) % 2; // Kezdetben a következő kép indexe a jelenlegi kép indexének az egyel nagyobb értéke
+                    var nextImage = szinek[currentIndex].replace("1", "2"); // A következő kép neve legyen a jelenlegi kép neve, csak a szám utolsó karaktere legyen 2
+
+                    var intervalId = null; // Ebben a változóban tároljuk az aktuális animáció id-ját
+
+                    // Animáció indítása
+                    intervalId = setInterval(function() {
+                        that.style.backgroundImage = "url('" + nextImage + "')";
+                        // Ha a következő kép 2-es, akkor 0.3 másodperc múlva váltunk vissza 1-esre, egyébként 0.3 másodperc múlva váltunk 2-esre
+                        if (nextImage.endsWith("2.png")) {
+                            setTimeout(function() {
+                                that.style.backgroundImage = "url('" + nextImage.replace("2", "1") + "')";
+                            }, 300);
+                        } else {
+                            setTimeout(function() {
+                                that.style.backgroundImage = "url('" + nextImage.replace("1", "2") + "')";
+                            }, 300);
+                        }
+                    }, 300);
+
+                    // Kattintáskor megszakítjuk az előző animációját amire kattintunk.
+                    var isAnimating = true;
+
+                    function stopAnimation() {
+                        clearInterval(intervalId);
+                        isAnimating = false;
+                    }
+
+                    this.onclick = function() {
+                        if (isAnimating) {
+                            stopAnimation();
+                        } else {
+                            intervalId = setInterval(function() {
+                                that.style.backgroundImage = "url('" + nextImage + "')";
+                                if (nextImage.endsWith("2.png")) {
+                                    setTimeout(function() {
+                                        that.style.backgroundImage = "url('" + nextImage.replace("2", "1") + "')";
+                                    }, 300);
+                                } else {
+                                    setTimeout(function() {
+                                        that.style.backgroundImage = "url('" + nextImage.replace("1", "2") + "')";
+                                    }, 300);
+                                }
+                            }, 300);
+                            isAnimating = true;
+                        }
+                    };
+                }
+            };
+            balraeltolas += 50;
+            document.getElementById("kulsoDiv").appendChild(div);
+            randomIndex = (randomIndex + 1) % szinek.length; // Visszatérünk a kezdeti színre, ha elfogyott a tömb
+        }
+        balraeltolas = 0;
+        lefeleeltolas += 50;
+    }
+
+    function Irdki() {
+        var canvas = document.getElementById("Index");
+        var ctx = canvas.getContext("2d");
+        var centerX = canvas.width / 2;
+        var centerY = 120;
+        var opacity = 1;
+        ctx.font = "70px Arial";
+        ctx.fillStyle = "red";
+        ctx.textAlign = "center";
+        ctx.fillText("Ennél többre vagy képes", centerX, centerY);
+
+        var intervalId = setInterval(function() {
+            opacity -= 0.1;
+            if (opacity <= 0) {
+                clearInterval(intervalId);
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+            } else {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                ctx.save();
+                ctx.globalAlpha = opacity;
+                ctx.fillText("Ennél többre vagy képes", centerX, centerY);
+                ctx.restore();
+            }
+        }, 200);
+    }
+</script>
+</body>
+</html>

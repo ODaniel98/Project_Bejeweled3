@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <title>Villamjatek</title>
+  <link rel="stylesheet" href="stilo.css">
+</head>
+<body>
+<div id="canvas-container">
+  <img src="Villamjatek.png">
+  <canvas id="Index" height="768" width="1024" style="border: 1px solid"></canvas>
+</div>
+<button id="button12" onclick="location.href='Index.html'"></button>
+<button id="button13" onclick="Irdki()"></button>
+<button id="button14" onclick="location.href='Villamjatek.html'"></button>
+<audio autoplay loop>
+  <source src="./hanganyag/Bejeweled3mainmenuzene.mp3">
+</audio>
+
+<div id="kulsoDiv">
+  <script>
+    var tomb = ["Kek1.png","Lila1.png","Feher1.png"];
+    var randomTombElem = 0;
+    //<div style="position:absolute; left:-500px; top:30px;">
+    var negyzetekMerete = 50;
+    var sorokSzama = 8;
+    var oszlopokSzama = 8;
+    var balraeltolas = 0;
+    var lefeleeltolas = 0;
+
+    for (var i = 0; i < sorokSzama; i++) {
+      for (var j = 0; j < oszlopokSzama; j++) {
+        var div = document.createElement("div");
+        div.style.position = "absolute";
+        div.style.left =""+balraeltolas+"px";
+        div.style.top =""+lefeleeltolas+"px";
+        div.style.width = "50px";
+        div.style.height = "50px";
+        console.log("url('"+ tomb[randomTombElem]+"')");
+        div.style.backgroundImage ="url('"+ tomb[randomTombElem]+"')";
+        //document.getElementById("myDiv").style.backgroundImage = "url('img_tree.png')";
+        ++randomTombElem;
+        if(randomTombElem === 3){
+          randomTombElem = 0;
+        }
+        //div.innerHTML = "Hello";
+        balraeltolas += 50;
+        document.getElementById("kulsoDiv").appendChild(div);
+      }
+      balraeltolas = 0;
+      lefeleeltolas += 50;
+
+    }
+
+  </script>
+</div>
+
+
+<script>
+  function Irdki() {
+    var canvas = document.getElementById("Index");
+    var ctx = canvas.getContext("2d");
+    var centerX = canvas.width / 2;
+    var centerY = canvas.height / 2;
+    var opacity = 1;
+    ctx.font = "20px Arial";
+    ctx.fillStyle = "red";
+    ctx.textAlign = "center";
+    ctx.fillText("Ennél többre vagy képes", centerX, centerY);
+
+
+
+
+    var intervalId = setInterval(function() {
+      opacity -= 0.1;
+      if (opacity <= 0) {
+        clearInterval(intervalId);
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+      } else {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.save();
+        ctx.globalAlpha = opacity;
+        ctx.fillText("Ennél többre vagy képes", centerX, centerY);
+        ctx.restore();
+      }
+    }, 200);
+  }
+
+
+
+</script>
+
+</body>
+</html>

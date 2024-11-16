@@ -1,0 +1,150 @@
+#canvas-container {
+    position: relative;
+}
+#canvas-container canvas {
+    position: absolute;
+}
+#canvas-container img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+}
+#canvas-container button {
+    position: absolute;
+    top: 440px;
+    left: 800px;
+    z-index: 2;
+    background-image: url('Play.png');
+    width: 303px;
+    height: 266px
+}
+#button1 {
+    position: absolute;
+    top: 515px;
+    left: 270px;
+    z-index: 2;
+    background-image: url('Options.png');
+    width: 250px;
+    height: 198px;
+}
+#button2 {
+    position: absolute;
+    top: 315px;
+    left: 740px;
+    z-index: 2;
+    background-image: url('JobbraNyilazIndexbe.png');
+    width: 141px;
+    height: 158px;
+}
+#button3 {
+    position: absolute;
+    top: 500px;
+    left: 1440px;
+    z-index: 2;
+    background-image: url('Ranglista.png');
+    width: 222px;
+    height: 214px;
+}
+#button4 {
+    position: absolute;
+    top: 370px;
+    left: 74px;
+    z-index: 2;
+    background-image: url('BalraNyilRanglista.png');
+    width: 152px;
+    height: 146px;
+}
+#button5 {
+    position: absolute;
+    top: 257px;
+    left: 274px;
+    z-index: 2;
+    background-image: url('LightningButton.png');
+    width: 183px;
+    height: 50px;
+}
+#button6 {
+    position: absolute;
+    top: 257px;
+    left: 274px;
+    z-index: 2;
+    background-image: url('ClassicButton.png');
+    width: 186px;
+    height: 52px;
+}
+#button7 {
+    position: absolute;
+    top: 1120px;
+    left: 190px;
+    z-index: 2;
+    background-image: url('Backbutton.png');
+    width: 161px;
+    height: 73px;
+}
+#button8 {
+    position: absolute;
+    top: 100px;
+    left: 300px;
+    z-index: 2;
+    background-image: url('PlayClassicButton.png');
+    width: 342px;
+    height: 328px;
+}
+#button9 {
+    position: absolute;
+    top: 460px;
+    left: 70px;
+    z-index: 2;
+    background-image: url('HintButton.png');
+    width: 196px;
+    height: 184px;
+}
+#button10 {
+    position: absolute;
+    top: 645px;
+    left: 120px;
+    z-index: 2;
+    background-image: url('MenuButton.png');
+    width: 87px;
+    height: 81px;
+}
+#button11 {
+    position: absolute;
+    top: 705px;
+    left: 250px;
+    z-index: 2;
+    background-image: url('LightningPlayButton.png');
+    width: 421px;
+    height: 391px;
+}
+#button12 {
+    position: absolute;
+    top: 670px;
+    left: 80px;
+    z-index: 2;
+    background-image: url('MenuButton2.png');
+    width: 74px;
+    height: 73px;
+}
+#button13 {
+    position: absolute;
+    top: 545px;
+    left: 90px;
+    z-index: 2;
+    background-image: url('HintButton2.png');
+    width: 161px;
+    height: 129px;
+}
+#button14 {
+    position: absolute;
+    top: 670px;
+    left: 180px;
+    z-index: 2;
+    background-image: url('ResetButton.png');
+    width: 67px;
+    height: 67px;
+}
+#valami{
+    z-index: 10;
+}
